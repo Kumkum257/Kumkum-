@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Tracker App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
+        header {
+            width: 100%;
+            background: #333;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+        h2 {
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-group button {
+            background: #333;
+            color: #fff;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Fitness Tracker</h1>
+</header>
+
+<div class="container">
+    <h2>Track Workout</h2>
+    <div class="form-group">
+        <label for="activity">Activity</label>
+        <select id="activity">
+            <option value="running">Running</option>
+            <option value="cycling">Cycling</option>
+            <option value="swimming">Swimming</option>
+            <option value="weightlifting">Weightlifting</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="duration">Duration (minutes)</label>
+        <input type="number" id="duration" min="1">
+    </div>
+    <div class="form-group">
+        <button onclick="trackActivity()">Track Activity</button>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Set Goals</h2>
+    <div class="form-group">
+        <label for="goal">Weekly Goal (minutes)</label>
+        <input type="number" id="goal" min="1">
+    </div>
+    <div class="form-group">
+        <button onclick="setGoal()">Set Goal</button>
+    </div>
+</div>
+
+<div class="container">
+    <h2>View Progress</h2>
+    <p id="progress"></p>
+</div>
+
+<script>
+    let activities = [];
+    let goal = 0;
+
+    function trackActivity() {
+        const activity = document.getElementById('activity').value;
+        const duration = parseInt(document.getElementById('duration').value);
+        activities.push({ activity, duration });
+        alert('Activity tracked!');
+        updateProgress();
+    }
+
+    function setGoal() {
+        goal = parseInt(document.getElementById('goal').value);
+        alert('Goal set!');
+        updateProgress();
+    }
+
+    function updateProgress() {
+        let totalDuration = activities.reduce((total, activity) => total + activity.duration, 0);
+        let progressText = `Total Duration: ${totalDuration} minutes`;
+        if (goal > 0) {
+            progressText += `<br>Goal: ${goal} minutes<br>Progress: ${Math.min((totalDuration / goal) * 100, 100).toFixed(2)}%`;
+        }
+        document.getElementById('progress').innerHTML = progressText;
+    }
+</script>
+
+</body>
+</html>
