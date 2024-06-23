@@ -15,6 +15,5 @@ A simple project that helps users manage their tasks efficiently.
    git clone 
 https://github.com/Kumkum257/Kumkum-.git
 
-cd your-project
-npm install
+cd BCA 3rd year project 
 npm start
